@@ -1,75 +1,162 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+// import React, { useState } from 'react';
+// import { View } from 'react-native';
+// import MapScreen from '.../../.../../.../../.../../components/MapScreen';
+// import CategoryScreen from '.../../.../../.../../.../../components/CategoryScreen';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
 
-export default function HomeScreen() {
+// type Screen = 'map' | 'category';
+
+// export default function App() {
+//   const [currentScreen, setCurrentScreen] = useState<Screen>('map');
+//   const [selectedCategory, setSelectedCategory] = useState<string>('');
+
+//   const handleCategorySelect = (category: string) => {
+//     setSelectedCategory(category);
+//     setCurrentScreen('category');
+//   };
+
+//   const handleBackToMap = () => {
+//     setCurrentScreen('map');
+//   };
+
+//   const handleItemSelect = (item: any) => {
+//     console.log('Item selected:', item);
+//     // Handle item selection logic here
+//   };
+
+//   return (
+//     <View style={{ flex: 1 }}>
+//       {currentScreen === 'map' ? (
+//         <MapScreen
+//           onCategorySelect={handleCategorySelect}
+//           onItemSelect={handleItemSelect}
+//         />
+//       ) : (
+//         <CategoryScreen
+//           categoryTitle="Phone & Accessories"
+//           onItemPress={handleItemSelect}
+//           onBackPress={handleBackToMap}
+//         />
+//       )}
+//     </View>
+//   );
+// }
+
+import { View, ScrollView, Text, TouchableOpacity, SafeAreaView } from "react-native";
+import { Filter } from "lucide-react-native";
+import React, { useState } from 'react';
+import SearchBar from "../../components/SearchBar";
+import CategoryTabs from "../../components/CategoryTabs";
+import ProductCard from "../../components/ProductCard";
+
+export default function HomePage() {
+  const [activeTab, setActiveTab] = useState('All');
+
+  const products = [
+    {
+      title: "Item title",
+      price: "5000 DA", 
+      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=200&fit=crop",
+      distance: "1.5 km",
+      tag: "Exchange",
+      tagColor: "#3B82F6"
+    },
+    {
+      title: "Item title",
+      price: "5000 DA", 
+      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=200&fit=crop",
+      distance: "1.5 km",
+      tag: "Exchange",
+      tagColor: "#3B82F6"
+    },
+    {
+      title: "Item title",
+      price: "5000 DA", 
+      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=200&fit=crop",
+      distance: "1.5 km",
+      tag: "Exchange",
+      tagColor: "#3B82F6"
+    },
+    {
+      title: "Item title",
+      price: "5000 DA", 
+      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=200&fit=crop",
+      distance: "1.5 km",
+      tag: "Exchange",
+      tagColor: "#3B82F6"
+    },
+    {
+      title: "Item title",
+      price: "5000 DA", 
+      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=200&fit=crop",
+      distance: "1.5 km",
+      tag: "offered",
+      tagColor: "#3B82F6"
+    },
+    // ... more products
+  ];
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }}>
+        {/* Header with teal gradient */}
+        <View style={{ backgroundColor: "#14B8A6", paddingTop: 20, paddingBottom: 20 }}>
+          <SearchBar />
+          <CategoryTabs onCategoryPress={(cat, idx) => {
+            if (idx === 2) {
+              // Navigate to Phone & Accessories
+            }
+          }} />
+        </View>
+
+        {/* All items section */}
+        <View style={{ 
+          backgroundColor: "white", 
+          borderTopLeftRadius: 24, 
+          borderTopRightRadius: 24, 
+          paddingHorizontal: 16, 
+          paddingTop: 24,
+          marginTop: -10,
+          flex: 1 
+        }}>
+          <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+            <Text style={{ fontSize: 18, fontWeight: "bold", color: "#1F2937" }}>All items</Text>
+            <Filter size={20} color="#6B7280" />
+          </View>
+
+          {/* Tabs */}
+          <View style={{ flexDirection: "row", marginBottom: 16, borderBottomWidth: 1, borderBottomColor: "#E5E7EB" }}>
+            {['All', 'offered', 'Asked'].map((tab) => (
+              <TouchableOpacity
+                key={tab}
+                onPress={() => setActiveTab(tab)}
+                style={{
+                  paddingVertical: 12,
+                  paddingHorizontal: 16,
+                  marginRight: 24,
+                  borderBottomWidth: activeTab === tab ? 2 : 0,
+                  borderBottomColor: "#14B8A6"
+                }}
+              >
+                <Text style={{
+                  fontSize: 14,
+                  color: activeTab === tab ? "#14B8A6" : "#6B7280",
+                  fontWeight: "500"
+                }}>
+                  {tab}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+
+          {/* Products Grid */}
+          <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between" }}>
+            {products.map((product, idx) => (
+              <ProductCard key={idx} {...product} />
+            ))}
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
